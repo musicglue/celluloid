@@ -105,8 +105,12 @@ module Celluloid
       raise "a group member went missing. This shouldn't be!" unless member
 
       if reason
+        Celluloid::Logger.warn ">>>>> restart_actor: reason=#{reason}"
+
         member.restart
       else
+        Celluloid::Logger.warn ">>>>> restart_actor: member=#{member.name} actor=#{member.actor.inspect}"
+
         member.cleanup
         @members.delete(member)
       end
